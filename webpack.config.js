@@ -4,7 +4,7 @@ const CssBlocks = require("@css-blocks/jsx");
 const CssBlocksPlugin = require("@css-blocks/webpack").CssBlocksPlugin;
 
 const paths = {
-  appIndexJs: './src/index.js'
+  appIndexJs: './src/index.jsx'
 };
 
 const jsxCompilationOptions = {
@@ -23,9 +23,7 @@ const CssBlockRewriter = new CssBlocks.Rewriter(jsxCompilationOptions);
 const CssBlockAnalyzer = new CssBlocks.Analyzer(paths.appIndexJs, jsxCompilationOptions);
 
 const config = {
-  entry: {
-    main: './src/index.js',
-  },
+  entry: [ './src/index.jsx' ],
   // mode: 'development',
   module: {
     rules: [
@@ -34,7 +32,7 @@ const config = {
       //   use: ['style-loader', 'css-loader']
       // },
       {
-        test: /\.js$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         use: [
           {
