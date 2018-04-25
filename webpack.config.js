@@ -3,7 +3,9 @@ const path = require('path');
 const CssBlocks = require("@css-blocks/jsx");
 const CssBlocksPlugin = require("@css-blocks/webpack").CssBlocksPlugin;
 
-process.env.NODE_ENV = 'development';
+if (typeof process.env.NODE_ENV === "undefined") {
+  process.env.NODE_ENV = 'development';
+}
 
 const paths = {
   appIndexJs: './src/index.js'
@@ -16,7 +18,7 @@ const jsxCompilationOptions = {
     mergeDeclarations: true,
     removeUnusedStyles: true,
     conflictResolution: true,
-    enabled: true,
+    enabled: process.env.NODE_ENV === "production",
   },
   aliases: {}
 };
@@ -25,9 +27,7 @@ const CssBlockRewriter = new CssBlocks.Rewriter(jsxCompilationOptions);
 const CssBlockAnalyzer = new CssBlocks.Analyzer(paths.appIndexJs, jsxCompilationOptions);
 
 const config = {
-  entry: {
-    main: './src/index.js',
-  },
+  entry: [ paths.appIndexJs ],
   // mode: 'development',
   module: {
     rules: [

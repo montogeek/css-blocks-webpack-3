@@ -11,10 +11,23 @@
   overflow: hidden;
   padding: 0 16px;
 }
+:scope:active {
+  background-color: #811f34;
+}
 
 :scope[state|inverse] {
+  outline: none;
   background-color: white;
+  box-shadow: 2px 2px 3px #ed2651;
   color: #ed2651;
+}
+
+:scope[state|inverse]:focus {
+  background-color: #811f34; 
+}
+
+:scope[state|inverse]:active {
+  box-shadow: 1px 1px 1px #ed2651;
 }
 
 :scope[state|size='small'] {
