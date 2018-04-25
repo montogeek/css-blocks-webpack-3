@@ -1,0 +1,29 @@
+:scope {
+  background-color: #ed2651;
+  border: 0;
+  border-radius: 2px;
+  box-sizing: border-box;
+  color: white;
+  height: 24px;
+  line-height: 24px;
+  overflow: hidden;
+  padding: 0 16px;
+}
+:scope[state|inverse] {
+  background-color: white;
+  color: #ed2651;
+}
+:scope[state|size='small'] {
+  height: 16px;
+  line-height: 16px;
+  padding: 0px 8px;
+}
+.icon {
+  height: 16px;
+  margin-right: 8px;
+  overflow: hidden;
+  width: 16px;
+}
+.icon[state|animate] {
+  animation: 3s ease-in 1s icon-animation;
+}
