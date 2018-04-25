@@ -14,7 +14,7 @@ const jsxCompilationOptions = {
     mergeDeclarations: true,
     removeUnusedStyles: true,
     conflictResolution: true,
-    enabled: true,
+    enabled: process.env.NODE_ENV === "production",
   },
   aliases: {}
 };

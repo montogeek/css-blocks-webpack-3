@@ -18,4 +18,4 @@ export default function Button({ size = 'medium', inverse, icon, children }) {
   );
 }
 
-ReactDOM.render(<Button>Hello CSS Blocks!</Button>, document.getElementById('app'))
+ReactDOM.render(<Button inverse={true}>Hello CSS Blocks!</Button>, document.getElementById('app'))
