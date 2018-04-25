@@ -1,48 +1,38 @@
-import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
-import CssBlocks from '@css-blocks/jsx';
-import { CssBlocksPlugin } from '@css-blocks/webpack';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const CssBlocks = require("@css-blocks/jsx");
+const CssBlocksPlugin = require("@css-blocks/webpack").CssBlocksPlugin;
 
 const paths = {
   appIndexJs: './src/index.js'
 };
 
 const jsxCompilationOptions = {
-  compilationOptions: {
-    sourceType: 'module',
-    plugins: [
-      'jsx',
-      'flow',
-      'decorators',
-      'classProperties',
-      'exportExtensions',
-      'asyncGenerators',
-      'functionBind',
-      'functionSent',
-      'dynamicImport'
-    ]
-  },
+  compilationOptions: {},
   optimization: {
-    enabled: true,
     rewriteIdents: true,
+    mergeDeclarations: true,
     removeUnusedStyles: true,
-    mergeDeclarations: true
-  }
+    conflictResolution: true,
+    enabled: true,
+  },
+  aliases: {}
 };
 
-const CssBlockRewriter = new CssBlocks.Rewriter();
-const CssBlockAnalyzer = new CssBlocks.Analyzer(paths.appIndexJs, jsxCompilationOptions.compilationOptions);
+const CssBlockRewriter = new CssBlocks.Rewriter(jsxCompilationOptions);
+const CssBlockAnalyzer = new CssBlocks.Analyzer(paths.appIndexJs, jsxCompilationOptions);
 
 const config = {
-  entry: './src/index.js',
+  entry: {
+    main: './src/index.js',
+  },
   // mode: 'development',
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      },
+      // {
+      //   test: /\.css$/,
+      //   use: ['style-loader', 'css-loader']
+      // },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -50,20 +40,28 @@ const config = {
           {
             loader: require.resolve('babel-loader'),
             options: {
-              plugins: [
-                'transform-react-jsx',
-                require('@css-blocks/jsx/dist/src/transformer/babel').makePlugin({
-                  rewriter: CssBlockRewriter
-                })
-              ],
+              presets: [require.resolve('babel-preset-react-app')],
               cacheDirectory: true,
+              compact: true
+            }
+          },
+
+          // Run the css-blocks plugin in its own dedicated loader because the react-app preset
+          // steps on our transforms' feet. This way, we are guaranteed a clean pass before any
+          // other transforms are done.
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              plugins: [
+                require('@css-blocks/jsx/dist/src/transformer/babel').makePlugin({ rewriter: CssBlockRewriter })
+              ],
+              cacheDirectory: false,
               compact: true,
               parserOpts: {
                 plugins: ['jsx']
               }
             }
           },
-
           // The JSX Webpack Loader halts loader execution until after all blocks have
           // been compiled and template analyses has been run. StyleMapping data stored
           // in shared `rewriter` object.
@@ -96,4 +94,4 @@ const config = {
   }
 };
 
-export default config;
+module.exports = config;

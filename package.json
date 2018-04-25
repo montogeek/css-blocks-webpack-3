@@ -5,7 +5,7 @@
   "module": "main.js",
   "license": "MIT",
   "scripts": {
-    "build": "node -r esm ./node_modules/.bin/webpack"
+    "build": "NODE_ENV=production node -r esm ./node_modules/.bin/webpack"
   },
   "dependencies": {
     "esm": "^3.0.26",
@@ -16,6 +16,7 @@
     "@css-blocks/webpack": "0.18.0",
     "babel-loader": "7.1.4",
     "babel-plugin-transform-react-jsx": "6.24.1",
+    "babel-preset-react-app": "3.1.1",
     "css-loader": "0.28.11",
     "html-webpack-plugin": "3.2.0",
     "react": "16.3.2",
