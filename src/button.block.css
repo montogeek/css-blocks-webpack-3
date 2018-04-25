@@ -4,26 +4,39 @@
   border-radius: 2px;
   box-sizing: border-box;
   color: white;
+  font-size: 14px;
   height: 24px;
   line-height: 24px;
+  margin: 0 12px 12px 0;
   overflow: hidden;
   padding: 0 16px;
 }
+
 :scope[state|inverse] {
   background-color: white;
   color: #ed2651;
 }
+
 :scope[state|size='small'] {
+  font-size: 12px;
   height: 16px;
   line-height: 16px;
   padding: 0px 8px;
 }
+
+:scope[state|size='large'] {
+  height: 48px;
+  line-height: 48px;
+  padding: 0px 24px;
+}
+
 .icon {
   height: 16px;
   margin-right: 8px;
   overflow: hidden;
   width: 16px;
 }
+
 .icon[state|animate] {
   animation: 3s ease-in 1s icon-animation;
 }

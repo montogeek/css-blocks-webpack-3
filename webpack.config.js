@@ -3,6 +3,8 @@ const path = require('path');
 const CssBlocks = require("@css-blocks/jsx");
 const CssBlocksPlugin = require("@css-blocks/webpack").CssBlocksPlugin;
 
+process.env.NODE_ENV = 'development';
+
 const paths = {
   appIndexJs: './src/index.js'
 };
@@ -36,8 +38,7 @@ const config = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
+        use: [{
             loader: require.resolve('babel-loader'),
             options: {
               presets: [require.resolve('babel-preset-react-app')],
