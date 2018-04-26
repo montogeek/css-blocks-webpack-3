@@ -1,11 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 import objstr from 'obj-str';
-import styles from './button.css';
+import styles from './button.block.css';
 
-console.log(styles)
-
-export default function Button({ size, inverse, icon, children }) {
+export default function Button({ size='medium', inverse, icon, children }) {
   const style = objstr({
     [styles]: true,
     [styles.inverse()]: inverse,
@@ -19,4 +17,8 @@ export default function Button({ size, inverse, icon, children }) {
   );
 }
 
-ReactDOM.render(<Button />, document.getElementById('app'))
+ReactDOM.render(<div>
+  <Button size='small'>Hello CSS Blocks World!</Button><br />
+  <Button size='medium' inverse={true}>Hello CSS Blocks World!</Button><br />
+  <Button size='large'>Hello CSS Blocks World!</Button>
+</div>, document.getElementById('app'))
